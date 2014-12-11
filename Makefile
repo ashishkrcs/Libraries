@@ -8,9 +8,9 @@ IDIR = inc
 _DEPS = LinkedList.h
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 
-CFLAGS=-c -Wall -I$(IDIR)
+CFLAGS=-Wall -Werror -I$(IDIR)
 %.o: %.c $(DEPS)
 		$(CC) -c -o $@ $< $(CFLAGS)
 
 all:inc/LinkedList.h
-	$(CC) $(CFLAGS) src/LinkedList.cpp -o LinkedList
+	$(CC) $(CFLAGS) src/LinkedList.cpp -o LinkedList && chmod a+x LinkedList
