@@ -14,3 +14,6 @@ CFLAGS=-Wall -Werror -I$(IDIR)
 
 all:inc/LinkedList.h
 	$(CC) $(CFLAGS) src/LinkedList.cpp -o LinkedList && chmod a+x LinkedList
+	
+clean:
+	rm -rf *.a  && rm LinkedList
