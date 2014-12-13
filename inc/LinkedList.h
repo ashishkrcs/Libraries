@@ -22,15 +22,53 @@ private:
 	SinglyLinkedList *head;
 
 public:
-	void printAllLLElements(void);
-	STATUS addNode(int data);
-	STATUS deleteNode(SinglyLinkedList *nodePtr);
-	LinkedList();
-	SinglyLinkedList* findLastNode();
-	~LinkedList();
-	void emptyTheList(void);
-
+        void printAllLLElements(void);
+        STATUS appendNode(int data);
+        STATUS deleteNode(SinglyLinkedList *nodePtr);
+        LinkedList();
+        SinglyLinkedList* findLastNode();
+        ~LinkedList();
+        void emptyTheList(void);
+        STATUS addNodeAtHead(int data);
+        STATUS addNodeAfter(SinglyLinkedList *prevNode, int data);
+        SinglyLinkedList *getHead();
 };
 
 
 #endif /* LINKEDLIST_H_ */
+/*
+ 
+
+In Short: When passing by value, such as in above code, make sure you pass pointer to value you want to change. And we want to change value of head pointer, to insert node at beginning and hence as per rule we pass pointer to head pointer.
+
+i'll use a visual representation to help explaining:
+Visual -
+pointer_to_head -> head -> first_node -> second_node -> .... -> NULL
+
+Now, lets say i want to insert a new_first_node in the beginning, i.e. before first_node.
+Visual -
+pointer_to_head -> head -> new_first_node -> first_node -> second_node -> .... -> NULL
+
+As you can see now, head is pointing to new_first_node instead first_node.
+
+So, we had to CHANGE value of head pointer such that it points to new_first_node
+
+now when i declare (Incorrect):
+void append(struct node* head, int new_data) {
+
+//insert new node at head
+
+}
+
+In above function, i'm passing a copy of head pointer and when i change its value, it wont reflect outside of this function scope.
+
+now when i declare (Correct):
+
+void append(struct node** pointer_to_head, int new_data) {
+
+//insert new node at head
+
+}
+
+In above function, i pass a copy of pointer_to_head, and i'm not interested in changing its value, coz i only want to change value of head pointer.
+*/

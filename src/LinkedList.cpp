@@ -12,6 +12,7 @@ using namespace std;
 void LinkedList::printAllLLElements(void){
 	SinglyLinkedList *temp;
 	if(head == NULL){
+            cout << endl << "No elements."<< endl;
 		return;
 	}
 	temp = head;
@@ -28,7 +29,7 @@ LinkedList::LinkedList(void){
 
 }
 
-STATUS LinkedList::addNode(int data){
+STATUS LinkedList::appendNode(int data){
 	//create new node
 	SinglyLinkedList *newNode = new SinglyLinkedList();
 	newNode->data = data;
@@ -50,6 +51,28 @@ STATUS LinkedList::addNode(int data){
 		}
 
 	}
+
+}
+
+STATUS LinkedList::addNodeAtHead(int data){
+	//create new node
+	SinglyLinkedList *newNode = new SinglyLinkedList();
+	newNode->data = data;
+	newNode->next = head;
+        head = newNode;
+			return SUCCESS;
+}
+
+STATUS LinkedList::addNodeAfter(SinglyLinkedList *prevNode, int data){
+        if(NULL == prevNode ) {
+            return FAILURE;
+        }	
+    //create new node
+	SinglyLinkedList *newNode = new SinglyLinkedList();
+	newNode->data = data;
+        newNode->next = prevNode->next;
+        prevNode->next = newNode;
+        return SUCCESS;
 
 }
 
@@ -86,16 +109,22 @@ void LinkedList::emptyTheList(void){
 	}
 }
 
+LinkedList::SinglyLinkedList * LinkedList::getHead(){
+    return head;
+}
+
 int main(int argc, char **argv){
 
 	cout<<"ok";
 	LinkedList *list1 =new LinkedList();
-	list1->addNode(7);
-	list1->addNode(45);
+	list1->appendNode(7);
+	list1->appendNode(45);
 	LinkedList *list11 =new LinkedList();
-	list11->addNode(3);
-	list11->addNode(4);
-	list11->addNode(4);
+	list11->appendNode(3);
+	list11->appendNode(4);
+	list11->appendNode(4);
+        list11->addNodeAtHead(0);
+        list11->addNodeAfter(list11->getHead()->next, 12);
 	list1->printAllLLElements();
 	list11->printAllLLElements();
 delete list1;
