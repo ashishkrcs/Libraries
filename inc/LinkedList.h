@@ -32,6 +32,8 @@ public:
         STATUS addNodeAtHead(int data);
         STATUS addNodeAfter(SinglyLinkedList *prevNode, int data);
         SinglyLinkedList *getHead();
+        STATUS deleteNodeWithKey(int key);
+        int getNthNode(int index);
 };
 
 
