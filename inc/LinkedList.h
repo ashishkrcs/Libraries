@@ -11,6 +11,11 @@ typedef enum{
 	SUCCESS=10,
 	FAILURE
 }STATUS;
+
+typedef enum{
+    FALSE = 0,
+    TRUE
+}BOOL;
 class LinkedList{
 
 public:
@@ -34,6 +39,15 @@ public:
         SinglyLinkedList *getHead();
         STATUS deleteNodeWithKey(int key);
         int getNthNode(int index);
+        SinglyLinkedList* getNthNodeRef(int index);
+        void printMiddle();
+        int countOccurrences( int search_for);
+        int detectLoop(int);
+        void reverse(SinglyLinkedList** head_ref);
+        BOOL compareLists(SinglyLinkedList *head1, SinglyLinkedList *head2);
+        void sortedInsert(int nodeData);
+        int countNodes();
+
 };
 
 

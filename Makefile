@@ -8,7 +8,7 @@ IDIR = inc
 _DEPS = LinkedList.h
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 
-CFLAGS=-Wall -Werror -I$(IDIR)
+CFLAGS=-g -Wall -Werror -I$(IDIR)
 %.o: %.c $(DEPS)
 		$(CC) -c -o $@ $< $(CFLAGS)
 
