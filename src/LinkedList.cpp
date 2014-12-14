@@ -15,7 +15,6 @@ using namespace std;
  */
 void LinkedList::printAllLLElements(void){
 	SinglyLinkedList *temp;
-        int cnt = 0;
 	if(head == NULL){
             cout << endl << "No elements."<< endl;
 		return;
@@ -25,7 +24,7 @@ void LinkedList::printAllLLElements(void){
 		cout << temp->data << endl;
 		temp = temp->next;
 
-	}while (NULL != temp && cnt++ <=5);
+	}while (NULL != temp);
 
 }
 
