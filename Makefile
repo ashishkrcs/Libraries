@@ -5,15 +5,15 @@ CC=g++
 # options I'll pass to the compiler.
 #next put the include directories
 IDIR = inc
-_DEPS = LinkedList.h
+_DEPS = LinkedList.h DriverFile.h
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 
 CFLAGS=-g -Wall -Werror -I$(IDIR)
 %.o: %.c $(DEPS)
 		$(CC) -c -o $@ $< $(CFLAGS)
 
-all:inc/LinkedList.h
-	$(CC) $(CFLAGS) src/LinkedList.cpp -o LinkedList && chmod a+x LinkedList
+all:inc/LinkedList.h inc/DriverFile.h
+	$(CC) $(CFLAGS) src/LinkedList.cpp src/DriverFile.cpp -o LinkedList && chmod a+x LinkedList
 	
 clean:
 	rm -rf *.a  && rm LinkedList

@@ -7,53 +7,54 @@
 
 #ifndef LINKEDLIST_H_
 #define LINKEDLIST_H_
-typedef enum{
-	SUCCESS=10,
-	FAILURE
-}STATUS;
+typedef enum {
+    SUCCESS=10,
+    FAILURE
+} STATUS;
 
-typedef enum{
+typedef enum {
     FALSE = 0,
     TRUE
-}BOOL;
-class LinkedList{
+} BOOL;
 
-public:
-	struct SinglyLinkedList{
-		int data;
-		SinglyLinkedList *next;
-	};
+struct SinglyLinkedList {
+    int data;
+    SinglyLinkedList *next;
+};
+
+class LinkedList {
 private:
-	SinglyLinkedList *head;
+    SinglyLinkedList *head;
 
 public:
-        void printAllLLElements(void);
-        STATUS appendNode(int data);
-        STATUS deleteNode(SinglyLinkedList *nodePtr);
-        LinkedList();
-        SinglyLinkedList* findLastNode();
-        ~LinkedList();
-        void emptyTheList(void);
-        STATUS addNodeAtHead(int data);
-        STATUS addNodeAfter(SinglyLinkedList *prevNode, int data);
-        SinglyLinkedList *getHead();
-        STATUS deleteNodeWithKey(int key);
-        int getNthNode(int index);
-        SinglyLinkedList* getNthNodeRef(int index);
-        void printMiddle();
-        int countOccurrences( int search_for);
-        int detectLoop(int);
-        void reverse(SinglyLinkedList** head_ref);
-        BOOL compareLists(SinglyLinkedList *head1, SinglyLinkedList *head2);
-        void sortedInsert(int nodeData);
-        int countNodes();
+    void printAllLLElements(void);
+    STATUS appendNode(int data);
+    STATUS deleteNode(SinglyLinkedList *nodePtr);
+    LinkedList();
+    SinglyLinkedList* findLastNode();
+    ~LinkedList();
+    void emptyTheList(void);
+    STATUS addNodeAtHead(int data);
+    STATUS addNodeAfter(SinglyLinkedList *prevNode, int data);
+    SinglyLinkedList *getHead();
+    STATUS deleteNodeWithKey(int key);
+    int getNthNode(int index);
+    SinglyLinkedList* getNthNodeRef(int index);
+    void printMiddle();
+    int countOccurrences( int search_for);
+    int detectLoop(int);
+    void reverse(SinglyLinkedList** head_ref);
+    BOOL compareLists(SinglyLinkedList *head1, SinglyLinkedList *head2);
+    void sortedInsert(int nodeData);
+    int countNodes();
+    STATUS updateHead(SinglyLinkedList *newHead);
 
 };
 
 
 #endif /* LINKEDLIST_H_ */
 /*
- 
+
 
 In Short: When passing by value, such as in above code, make sure you pass pointer to value you want to change. And we want to change value of head pointer, to insert node at beginning and hence as per rule we pass pointer to head pointer.
 
