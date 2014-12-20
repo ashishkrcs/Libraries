@@ -193,7 +193,13 @@ STATUS moveToFront(SinglyLinkedList **head) {
 }
 
 
-
+void printSinglyLinkedList(SinglyLinkedList* headnode){
+  SinglyLinkedList* temp = headnode;
+  while(temp){
+    cout<<temp->data<<endl;
+    
+  }
+}
 
 /**
  *
