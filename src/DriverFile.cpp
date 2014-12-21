@@ -120,7 +120,6 @@ BOOL detectIntersection(int len1, SinglyLinkedList *head1, int len2, SinglyLinke
 
 }
 
-
 /**
  * @brief ...
  *
@@ -161,7 +160,7 @@ STATUS swapPairWiseLL(SinglyLinkedList *head) {
  * @brief ... Moves last element to the front(head). It is the responsibility of the caller
  * to actually set the head of the underlying LinkedList to the new head after this function
  * returns.
- * @param head ... pointer to pointer to head of the linked list. Singce this fn is not a 
+ * @param head ... pointer to pointer to head of the linked list. Singce this fn is not a
  * member fn of class, it would need another class specific fn call to update the class member
  * head (LinkedList::UpdateHead)
  * @return STATUS
@@ -171,7 +170,7 @@ STATUS moveToFront(SinglyLinkedList **head) {
     SinglyLinkedList *temp, *prev;
     STATUS retVal = FAILURE;
     if(head && *head) { // basic sanity NULL check
-          cout<<"Addr of ptr to head in moveToFront"<< head<<endl;
+        cout<<"Addr of ptr to head in moveToFront"<< head<<endl;
 
         prev = *head;
         temp = prev->next;
@@ -185,7 +184,7 @@ STATUS moveToFront(SinglyLinkedList **head) {
         temp->next = (*head);
 
         *head = temp;
-	retVal = SUCCESS;
+        retVal = SUCCESS;
     }
     return retVal;
 
@@ -193,56 +192,136 @@ STATUS moveToFront(SinglyLinkedList **head) {
 }
 
 
-void printSinglyLinkedList(SinglyLinkedList* headnode){
-  SinglyLinkedList* temp = headnode;
-  while(temp){
-    cout<<temp->data<<endl;
-    
-  }
+void printSinglyLinkedList(SinglyLinkedList* headnode) {
+    SinglyLinkedList* temp = headnode;
+    while(temp) {
+        cout<<temp->data<<endl;
+
+    }
 }
 
 /**
- * @brief ...Given two lists sorted in increasing order, 
- * create and return a new list representing the intersection of the two lists. 
- * The new list should be made with its own memory — the original lists should not be changed. For example, 
- * let the first linked list be 1->2->3->4->6 and second linked list be 2->4->6->8, 
+ * @brief ...Given two lists sorted in increasing order,
+ * create and return a new list representing the intersection of the two lists.
+ * The new list should be made with its own memory — the original lists should not be changed. For example,
+ * let the first linked list be 1->2->3->4->6 and second linked list be 2->4->6->8,
  * then your function should create and return a third list as 2->4->6.
- * 
+ *
  * @param head1 ...
  * @param head2 ...
  * @return LinkedList*
  */
-LinkedList* sortedIntersection(SinglyLinkedList* head1, SinglyLinkedList* head2){
-  LinkedList *newList = new LinkedList();
-  SinglyLinkedList *temp1 = head1, *temp2 = head2;
-  
-  while(temp1 && temp2){
-    if(temp1->data == temp2->data){
-      newList->appendNode(temp1->data);
-      temp1 = temp1->next;
-      temp2 = temp2->next;
-      
-    }else if(temp1->data < temp2->data){
+LinkedList* sortedIntersection(SinglyLinkedList* head1, SinglyLinkedList* head2) {
+    LinkedList *newList = new LinkedList();
+    SinglyLinkedList *temp1 = head1, *temp2 = head2;
+
+    while(temp1 && temp2) {
+        if(temp1->data == temp2->data) {
+            newList->appendNode(temp1->data);
             temp1 = temp1->next;
-    }else {
             temp2 = temp2->next;
+
+        } else if(temp1->data < temp2->data) {
+            temp1 = temp1->next;
+        } else {
+            temp2 = temp2->next;
+        }
+
     }
-    
-  }
-  
-  if(newList->countNodes() == 0 ){
-    delete newList;
-    return NULL;
-  }
-  
-  return newList;
-  
+
+    if(newList->countNodes() == 0 ) {
+        delete newList;
+        return NULL;
+    }
+
+    return newList;
+
 }
 
+/**
+ * @brief ...
+ *
+ * @param head ...
+ * @return void
+ */
+void deleteAlt(SinglyLinkedList* head) {
+    SinglyLinkedList* prev, *temp;
+
+    if(head && head->next) {
+        prev = head;
+        temp = head->next;
+
+        while(temp) {
+            prev->next = temp->next;
+
+            delete temp;
+
+            prev = prev->next;
+            if(prev) {
+                temp = prev->next;
+
+            }
+
+        }
+
+    }
+
+
+}
+
+/**
+ * @brief ...
+ *
+ * @param llRef ...
+ * @param nodeRef ...
+ * @return STATUS
+ */
+STATUS MoveNode(LinkedList* llRef, SinglyLinkedList* nodeRef) {
+    SinglyLinkedList* lastNode = llRef->findLastNode();
+    nodeRef->next = NULL;
+    if(lastNode) {
+        lastNode->next = nodeRef;
+    } else {
+        llRef->updateHead(nodeRef);
+    }
+
+    return SUCCESS;
+}
+
+/**
+ * @brief ...Given the source list, split its nodes into two shorter lists.
+ * If we number the elements 0, 1, 2, ... then all the even elements
+ * should go in the first list, and all the odd elements in the second.
+ * The elements in the new lists may be in any order.
+ *
+ * @param headOfOriginalList ...
+ * @param aRef ...
+ * @param bRef ...
+ * @return STATUS
+ */
+
+STATUS doAlternatSplit(SinglyLinkedList* headOfOriginalList, LinkedList* aRef, LinkedList* bRef) {
+    SinglyLinkedList *aPtr , *bPtr, *tempPtr = headOfOriginalList, *nextPtr;
+
+
+    while(tempPtr) {
+        aPtr = tempPtr;
+        nextPtr = tempPtr->next;
+        MoveNode(aRef,aPtr);
+        tempPtr = nextPtr;
+        if(tempPtr) {
+            bPtr = tempPtr;
+            nextPtr = tempPtr->next;
+            MoveNode(bRef,bPtr);
+            tempPtr = nextPtr;
+        }
+    }
+    return SUCCESS;
+}
 
 /**
  * @brief ...Test all individual functions
- * 
+ *
  * @param argc
  * @param argv
  * @return
@@ -338,19 +417,61 @@ int main(int argc, char **argv) {
     sortedList2->sortedInsert(102);
     sortedList2->sortedInsert(120);
     sortedList2->sortedInsert(9102);
-        sortedList2->sortedInsert(912);
+    sortedList2->sortedInsert(912);
 
-cout <<"Second List"<<endl;
+    cout <<"Second List"<<endl;
     sortedList2->printAllLLElements();
     LinkedList *sortedIntersenctionList  = sortedIntersection(sortedList->getHead(), sortedList2->getHead());
-if(sortedIntersenctionList){
-  cout <<"Intersection List"<<endl;
-  sortedIntersenctionList->printAllLLElements();
-}else{
-  cout << "No elements in common";
-}
+    if(sortedIntersenctionList) {
+        cout <<"Intersection List"<<endl;
+        sortedIntersenctionList->printAllLLElements();
+    } else {
+        cout << "No elements in common";
+    }
 
-  delete sortedList2;
+    delete sortedList2;
+
+#endif
+
+#if 0 //splitList and mergedlist check
+    LinkedList *sortedList3 = new LinkedList();
+    sortedList3->sortedInsert(1);
+    sortedList3->sortedInsert(2);
+    sortedList3->sortedInsert(3);
+    sortedList3->sortedInsert(4);
+    sortedList3->sortedInsert(5);
+    sortedList3->sortedInsert(6);
+    sortedList3->sortedInsert(7);
+    sortedList3->sortedInsert(8);
+    sortedList3->sortedInsert(9);
+    sortedList3->sortedInsert(10);
+    sortedList3->sortedInsert(11);
+
+    LinkedList *sortedList3a = new LinkedList();
+    LinkedList *sortedList3b = new LinkedList();
+
+    cout<<"Before split "<<sortedList3->countNodes()  <<endl;
+
+    sortedList3->printAllLLElements();
+
+    doAlternatSplit(sortedList3->getHead(),sortedList3a,sortedList3b);
+
+
+    cout<<"After split"<<endl;
+
+    sortedList3a->printAllLLElements();
+    cout<<"After split"<<endl;
+
+    sortedList3b->printAllLLElements();
+    cout<<"After split Original List "<<sortedList3->countNodes()  <<endl;
+    sortedList3->updateHead(NULL);
+
+    sortedList3->printAllLLElements();
+
+    cout << "Now create a new merged list with these separate lists"<<endl;
+    LinkedList *sortedMergedLL = new LinkedList(sortedList3a->getHead(), sortedList3b->getHead());
+
+    sortedMergedLL->printAllLLElements();
 
 #endif
 

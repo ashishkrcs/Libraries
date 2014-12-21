@@ -36,10 +36,12 @@ LinkedList::LinkedList(void) {
 
 }
 
+
 /**
- *
- * @param data
- * @return
+ * @brief ...Adds element at the end of the list.
+ * 
+ * @param data ...
+ * @return STATUS
  */
 STATUS LinkedList::appendNode(int data) {
     //create new node
@@ -80,11 +82,13 @@ STATUS LinkedList::addNodeAtHead(int data) {
     return SUCCESS;
 }
 
+
 /**
- *
- * @param prevNode
- * @param data
- * @return
+ * @brief ...
+ * 
+ * @param prevNode ...
+ * @param data ...
+ * @return STATUS
  */
 STATUS LinkedList::addNodeAfter(SinglyLinkedList *prevNode, int data) {
     if(NULL == prevNode ) {
@@ -441,13 +445,40 @@ int LinkedList::countNodes() {
  */
 STATUS LinkedList::updateHead(SinglyLinkedList *newHead) {
     STATUS retVal = FAILURE;
-    if(newHead) {
-        this->head = newHead;
-        retVal = SUCCESS;
-    }
-
+    this->head = newHead;
+    retVal = SUCCESS;
     return retVal;
 
 }
 
+
+/**
+ * @brief ...new LL from 2 sorted lists. Source lists are not modified.
+ *
+ * @param head1 ...head of source list 1.
+ * @param head2 ...head of source list 2.
+ */
+LinkedList::LinkedList(SinglyLinkedList *head1, SinglyLinkedList *head2) {
+    SinglyLinkedList *temp1 = head1, *temp2 = head2;
+
+
+    while(temp1 || temp2) {
+        if(temp1 && temp2) {
+            if(temp1->data < temp2->data) {
+                appendNode(temp1->data);
+                temp1 = temp1->next;
+            } else {
+                appendNode(temp2->data);
+                temp2 = temp2->next;
+            }
+        } else if(temp1) {
+            appendNode(temp1->data);
+            temp1 = temp1->next;
+
+        } else {
+            appendNode(temp2->data);
+            temp2 = temp2->next;
+        }
+    }
+}
 

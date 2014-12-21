@@ -31,6 +31,7 @@ public:
     STATUS appendNode(int data);
     STATUS deleteNode(SinglyLinkedList *nodePtr);
     LinkedList();
+    LinkedList(SinglyLinkedList* head1, SinglyLinkedList* head2);//new LL from 2 sorted lists
     SinglyLinkedList* findLastNode();
     ~LinkedList();
     void emptyTheList(void);
