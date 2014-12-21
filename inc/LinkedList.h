@@ -49,7 +49,7 @@ public:
     void sortedInsert(int nodeData);
     int countNodes();
     STATUS updateHead(SinglyLinkedList *newHead);
-
+    BOOL operator==( LinkedList& otherList);
 };
 
 

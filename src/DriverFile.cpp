@@ -475,5 +475,35 @@ int main(int argc, char **argv) {
 
 #endif
 
+#if 0 //operator overload check
+    LinkedList *list1n = new LinkedList();
+    list1n->sortedInsert(1);
+    list1n->sortedInsert(2);
+    list1n->sortedInsert(3);
+    list1n->sortedInsert(4);
+    list1n->sortedInsert(5);
+
+    
+        LinkedList *list2 = new LinkedList();
+    list2->sortedInsert(1);
+    list2->sortedInsert(2);
+    list2->sortedInsert(3);
+    list2->sortedInsert(4);
+    list2->sortedInsert(5);
+  
+    
+        LinkedList *list3 = new LinkedList();
+    list3->sortedInsert(1);
+    list3->sortedInsert(2);
+    list3->sortedInsert(3);
+    //list3->sortedInsert(4);
+    list3->sortedInsert(5);
+    list3->sortedInsert(6);
+
+cout << "Is list list1n == list2? "<< (*list1n == *list2) <<endl;
+cout << "Is list list3 == list2? "<< (*list3 == *list2) <<endl;
+cout << "Is list list1n == list3? "<< (*list1n == *list3) <<endl;
+
+#endif
     return 0;
 }

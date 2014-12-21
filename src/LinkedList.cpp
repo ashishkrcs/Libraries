@@ -482,3 +482,30 @@ LinkedList::LinkedList(SinglyLinkedList *head1, SinglyLinkedList *head2) {
     }
 }
 
+BOOL LinkedList::operator==( LinkedList& otherList){
+  SinglyLinkedList* t1=head;
+  const SinglyLinkedList* t2 = otherList.getHead();
+  BOOL retVal = TRUE;
+  while(t1 && t2){
+    if(t1->data == t2->data){
+      t1 = t1->next;
+      t2 = t2->next;
+
+    }else{
+      cout << "Data mismatch"<<endl;
+      retVal = FALSE;
+      break;
+    }
+    
+    
+  }
+  
+  if((t1 && !t2) || (t2 && !t1)) {
+    //if either list has extra elements
+    retVal = FALSE;
+          cout << "Length mismatch"<<endl;
+  }
+  
+  return retVal;
+  
+}
