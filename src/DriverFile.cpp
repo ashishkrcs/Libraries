@@ -202,6 +202,44 @@ void printSinglyLinkedList(SinglyLinkedList* headnode){
 }
 
 /**
+ * @brief ...Given two lists sorted in increasing order, 
+ * create and return a new list representing the intersection of the two lists. 
+ * The new list should be made with its own memory — the original lists should not be changed. For example, 
+ * let the first linked list be 1->2->3->4->6 and second linked list be 2->4->6->8, 
+ * then your function should create and return a third list as 2->4->6.
+ * 
+ * @param head1 ...
+ * @param head2 ...
+ * @return LinkedList*
+ */
+LinkedList* sortedIntersection(SinglyLinkedList* head1, SinglyLinkedList* head2){
+  LinkedList *newList = new LinkedList();
+  SinglyLinkedList *temp1 = head1, *temp2 = head2;
+  
+  while(temp1 && temp2){
+    if(temp1->data == temp2->data){
+      newList->appendNode(temp1->data);
+      temp1 = temp1->next;
+      temp2 = temp2->next;
+      
+    }else if(temp1->data < temp2->data){
+            temp1 = temp1->next;
+    }else {
+            temp2 = temp2->next;
+    }
+    
+  }
+  
+  if(newList->countNodes() == 0 ){
+    delete newList;
+    return NULL;
+  }
+  
+  return newList;
+  
+}
+
+/**
  *
  * @param argc
  * @param argv
@@ -283,12 +321,35 @@ int main(int argc, char **argv) {
     sortedList->printAllLLElements();
 #endif
 
-#if 1 //moveToFront test
+#if 0 //moveToFront test
     SinglyLinkedList *headLL  = sortedList->getHead();
     moveToFront(&headLL);
     sortedList->updateHead(headLL);
     cout<< "After movetoFront"<< endl;
     sortedList->printAllLLElements();
+#endif
+
+#if 0 //sortedIntersection test
+    LinkedList *sortedList2 = new LinkedList();
+    //sortedList2->sortedInsert(12);
+    sortedList2->sortedInsert(142);
+    sortedList2->sortedInsert(102);
+    sortedList2->sortedInsert(120);
+    sortedList2->sortedInsert(9102);
+        sortedList2->sortedInsert(912);
+
+cout <<"Second List"<<endl;
+    sortedList2->printAllLLElements();
+    LinkedList *sortedIntersenctionList  = sortedIntersection(sortedList->getHead(), sortedList2->getHead());
+if(sortedIntersenctionList){
+  cout <<"Intersection List"<<endl;
+  sortedIntersenctionList->printAllLLElements();
+}else{
+  cout << "No elements in common";
+}
+
+  delete sortedList2;
+
 #endif
 
     return 0;
