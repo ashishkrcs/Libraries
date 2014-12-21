@@ -239,8 +239,10 @@ LinkedList* sortedIntersection(SinglyLinkedList* head1, SinglyLinkedList* head2)
   
 }
 
+
 /**
- *
+ * @brief ...Test all individual functions
+ * 
  * @param argc
  * @param argv
  * @return
